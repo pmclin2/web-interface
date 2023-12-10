@@ -115,7 +115,7 @@ const PackageDetailPage = () => {
                               zIndex: 1,
                               textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000',
                               // Adjust the text shadow values for the desired outline effect
-                            }}>{ratingName}</div>
+                            }}>{ratingName} • {ratingArray[index]}</div>
                           </div>
                         </div>
                       </div>

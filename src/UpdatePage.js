@@ -10,7 +10,7 @@ import Toolbar from '@mui/material/Toolbar';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
 
-const UploadPage = () => {
+const UpdatePage = () => {
   const [files, setFiles] = useState([]);
   const [fileName, setFileName] = useState('');
   const [fileDescriptions, setFileDescriptions] = useState([]);
@@ -81,25 +81,25 @@ const UploadPage = () => {
           return;
         }
       }
-      for (let i = 0; i < files.length; i++) {
-        const item = {
-          TableName: 'registry',
-          Item: {
-            'id': { S: fileDescriptions[i].toLowerCase() },
-            'name': { S: (fileDescriptions[i] === '' ? fileName : fileDescriptions[i]) },
-            'version': { S: '1.0' },
-            'ratings': { S: '{ "URL": "github.com/pinojs/pino", "NET_SCORE" : 0.52, "RAMP_UP_SCORE" : 0.5341, "CORRECTNESS_SCORE" : 0.0816, "BUS_FACTOR_SCORE" : 0.9471, "RESPONSIVE_MAINTAINER_SCORE" : 0.2, "LICENSE_SCORE" : 1, "DEPENDENCE_SCORE" : 0.5, "REVIEWED_CODE_SCORE" : 0.3,}' } 
-          }
-        };
+    //   for (let i = 0; i < files.length; i++) {
+    //     const item = {
+    //       TableName: 'registry',
+    //       Item: {
+    //         'id': { S: fileDescriptions[i].toLowerCase() },
+    //         'name': { S: (fileDescriptions[i] === '' ? fileName : fileDescriptions[i]) },
+    //         'version': { S: '1.0' },
+    //         'ratings': { S: '{ "URL": "github.com/pinojs/pino", "NET_SCORE" : 0.52, "RAMP_UP_SCORE" : 0.5341, "CORRECTNESS_SCORE" : 0.0816, "BUS_FACTOR_SCORE" : 0.9471, "RESPONSIVE_MAINTAINER_SCORE" : 0.2, "LICENSE_SCORE" : 1, "DEPENDENCE_SCORE" : 0.5, "REVIEWED_CODE_SCORE" : 0.3,}' } 
+    //       }
+    //     };
 
-        dynamodb.putItem(item, (err, data) => {
-          if (err) {
-            console.error('Error adding item:', err);
-          } else {
-            console.log('Item added successfully:', data);
-          }
-        });
-      }
+    //     dynamodb.putItem(item, (err, data) => {
+    //       if (err) {
+    //         console.error('Error adding item:', err);
+    //       } else {
+    //         console.log('Item added successfully:', data);
+    //       }
+    //     });
+    //   }
 
       // Clear the files array and file name after upload
       setFiles([]);
@@ -114,7 +114,7 @@ const UploadPage = () => {
       <AppBar position="relative">
         <Toolbar>
           <Typography variant="h6" color="inherit" noWrap>
-            Upload Package
+            Update Package
           </Typography>
         </Toolbar>
       </AppBar>
@@ -134,8 +134,8 @@ const UploadPage = () => {
         </Link>
         <Container maxWidth="sm">
           <Typography variant="h5" align="center" color="text.secondary" paragraph>
-            Drag and drop or select a zip file of the package(s) you would like to upload
-            to the registry. You may upload one or multiple files at once.
+            Drag and drop or select a zip file of the package(s) you would like to update
+            that alreay exist in the registry. You may update one or multiple files at once.
           </Typography>
         </Container>
         <Container maxWidth="xl">
@@ -201,4 +201,4 @@ const UploadPage = () => {
   );
 }
 
-export default UploadPage;
+export default UpdatePage;

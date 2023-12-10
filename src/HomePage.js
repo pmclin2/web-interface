@@ -79,13 +79,16 @@ const HomePage = () => {
                 justifyContent="center"
               >
                 <Link to="/upload">
-                  <Button variant="outlined">Upload Package</Button>
+                  <Button variant="outlined">Upload</Button>
+                </Link>
+                <Link to="/update">
+                  <Button variant="outlined">Update</Button>
                 </Link>
                 <Link to="/search">
-                  <Button variant="outlined">Search Package</Button>
+                  <Button variant="outlined">Search</Button>
                 </Link>
                 <Link to="/rate">
-                  <Button variant="outlined">Rate Package</Button>
+                  <Button variant="outlined">Rate</Button>
                 </Link>
                 <Button variant="outlined">Reset Registry</Button>
               </Stack>

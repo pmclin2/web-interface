@@ -5,19 +5,21 @@ import UploadPage from './UploadPage';
 import SearchPage from './SearchPage';
 import PackageDetailPage from './PackageDetailPage';
 import RatePage from './RatePage';
-import LoginPage from './LoginPage';
+//import LoginPage from './LoginPage';
+import UpdatePage from './UpdatePage';
 
 function App() {
   return (
     <Router>
       <div className="App">
         <Routes>
-          <Route path="/" element={<LoginPage />} />
-          <Route path="/home" element={<HomePage />} />
+          {/* <Route path="/" element={<LoginPage />} /> */}
+          <Route path="/" element={<HomePage />} />
           <Route path="/upload" element={<UploadPage />} />
           <Route path="/search" element={<SearchPage />} />
           <Route path="/package/:packageName" element={<PackageDetailPage />} />
           <Route path="/rate" element={<RatePage />} />
+          <Route path="/update" element={<UpdatePage />} />
           {/* Add routes for other functionalities here */}
         </Routes>
       </div>

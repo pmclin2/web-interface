@@ -67,7 +67,7 @@ const SearchPage = () => {
         }}
       >
         {/* Add "Back to Homepage" button */}
-        <Link to="/home" style={{ textDecoration: 'none' }}>
+        <Link to="/" style={{ textDecoration: 'none' }}>
           <Button variant="outlined">
             Back
           </Button>
