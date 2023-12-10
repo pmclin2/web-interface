@@ -16,16 +16,16 @@ import ListItemText from '@mui/material/ListItemText';
 const HomePage = () => {
   const defaultTheme = createTheme();
   const [data, setData] = useState(null);
-  const [accessKey, setAccessKey] = useState('');
-  const [secretAccessKey, setSecretAccessKey] = useState('');
+  // const [accessKey, setAccessKey] = useState('');
+  // const [secretAccessKey, setSecretAccessKey] = useState('');
 
-  const handleLogout = () => {
-    setAccessKey('');
-    setSecretAccessKey('');
+  // const handleLogout = () => {
+  //   setAccessKey('');
+  //   setSecretAccessKey('');
 
-    sessionStorage.setItem('accessKey', accessKey);
-    sessionStorage.setItem('secretAccessKey', secretAccessKey);
-  };
+  //   sessionStorage.setItem('accessKey', accessKey);
+  //   sessionStorage.setItem('secretAccessKey', secretAccessKey);
+  // };
 
   useEffect(() => {
     const AWS = require('aws-sdk');
@@ -58,9 +58,9 @@ const HomePage = () => {
             <Typography variant="h6" color="inherit" noWrap>
               ACME Corporation Package Registry
             </Typography>
-            <Button color="inherit" onClick={handleLogout} component={Link} to="/">
+            {/* <Button color="inherit" onClick={handleLogout} component={Link} to="/">
               Logout
-            </Button>
+            </Button> */}
           </Toolbar>
         </AppBar>
         <main>
