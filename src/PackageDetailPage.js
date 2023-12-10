@@ -9,6 +9,8 @@ import Button from '@mui/material/Button';
 import Link from '@mui/material/Link';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
+import ReactMarkdown from 'react-markdown';
+import gfm from 'remark-gfm';
 
 const PackageDetailPage = () => {
   const { packageName } = useParams();
@@ -90,7 +92,9 @@ const PackageDetailPage = () => {
           <Box sx={{ p: 3 }}>
             {selectedTab === 0 && (
               <div>
-                temp readme
+                {(data && data.readme) && (
+                  <ReactMarkdown remarkPlugins={[gfm]}>{data.readme.S}</ReactMarkdown>
+                )}
               </div>
             )}
             {selectedTab === 1 && (

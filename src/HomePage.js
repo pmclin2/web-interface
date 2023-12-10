@@ -87,6 +87,7 @@ const HomePage = () => {
                 <Link to="/rate">
                   <Button variant="outlined">Rate Package</Button>
                 </Link>
+                <Button variant="outlined">Reset Registry</Button>
               </Stack>
             </Container>
           </Box>
