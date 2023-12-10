@@ -18,7 +18,7 @@ const PackageDetailPage = () => {
   const [selectedTab, setSelectedTab] = useState(0);
   const colors = ['#221f1f', '#242746', '#2e3233', '#263238', '#26324a', '#263264', '#2B3264', '#2E3264'];
   const ratings = ['NET SCORE', 'RAMP UP SCORE', 'CORRECTNESS SCORE', 'BUS FACTOR SCORE', 
-    'RESPONSIVE MAINTAINER SCORE', 'LICENSE SCORE', 'DEPENDENCE_ CORE', 'REVIEWED CODE SCORE']
+    'RESPONSIVE MAINTAINER SCORE', 'LICENSE SCORE', 'DEPENDENCE_ CORE', 'REVIEWED CODE SCORE'];
   const [data, setData] = useState(null);
 
   const handleTabChange = (event, newValue) => {
