@@ -41,6 +41,9 @@ const SearchPage = () => {
 
   const handleSearch = () => {
     // Filter mock data based on search query
+
+    // Input Sanitization 'searchQuery'
+
     const filteredResults = data.Items.filter(
       (packageData) =>
         packageData.name.S.toLowerCase().includes(searchQuery.toLowerCase())

@@ -22,6 +22,11 @@ const UploadPage = () => {
   const handleFileDrop = (event) => {
     event.preventDefault();
     const droppedFile = event.dataTransfer.files[0];
+
+    // Input Sanitization, 'droppedFile' is the file, Not sure how your sanitization works but if you want
+    // if the file doesn't pass your tests/requirements you can add that as a condition to the if statement
+    // below and then it will send the alert and not add the file to the array
+
     if (droppedFile && droppedFile.type === 'application/zip'){
       addFile(droppedFile);
     } else {
@@ -31,6 +36,9 @@ const UploadPage = () => {
 
   const handleFileChange = (event) => {
     const selectedFile = event.target.files[0];
+
+    // Input Sanitization, 'selectedFile' in this one. Same as above
+
     if (selectedFile && selectedFile.type === 'application/zip'){
       addFile(selectedFile);
     } else {

@@ -33,6 +33,8 @@ const RatePage = () => {
   const handleRateButtonClick = (urlInput) => {
     const urlRegex = /(github\.com|npmjs\.com)\/.+/;
 
+    // Input Sanitization 'urlInput'
+
     if (urlRegex.test(urlInput)) {
       // Valid URL format
       setShowScores(true);
