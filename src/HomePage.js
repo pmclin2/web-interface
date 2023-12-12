@@ -64,6 +64,9 @@ const HomePage = () => {
           </Toolbar>
         </AppBar>
         <main>
+          <a href="#packageList" style={{ position: 'absolute', top: '-9999px', left: '-9999px' }}>
+            Skip to Package List
+          </a>
           <Box
             sx={{
               bgcolor: 'background.paper',
@@ -94,7 +97,7 @@ const HomePage = () => {
               </Stack>
             </Container>
           </Box>
-          <Container maxwidth="lg">
+          <Container href="#packageList" maxwidth="lg">
             <Typography
               component="h1"
               variant="h2"
