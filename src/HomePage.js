@@ -97,7 +97,7 @@ const HomePage = () => {
               </Stack>
             </Container>
           </Box>
-          <Container href="#packageList" maxwidth="lg">
+          <Container role="none" href="#packageList" maxwidth="lg">
             <Typography
               component="h1"
               variant="h2"
