@@ -54,7 +54,7 @@ const SearchPage = () => {
 
   return (
     <ThemeProvider theme={defaultTheme}>
-      <AppBar position="relative">
+      <AppBar role="heading" position="relative">
         <Toolbar>
           <Typography variant="h6" color="inherit" noWrap>
             Search Packages
@@ -76,7 +76,7 @@ const SearchPage = () => {
           </Button>
         </Link>
         <Container maxWidth="sm">
-          <Typography variant="h5" align="center" color="text.secondary" paragraph>
+          <Typography role="heading" variant="h5" align="center" color="text.secondary" paragraph>
             Search for any packages that have already been uploaded to the registry.
           </Typography>
         </Container>

@@ -53,7 +53,7 @@ const HomePage = () => {
   return (
     <div>
       <ThemeProvider theme={defaultTheme}>
-        <AppBar position="relative">
+        <AppBar role="heading" position="relative">
           <Toolbar sx={{ justifyContent: 'space-between' }}>
             <Typography variant="h6" color="inherit" noWrap>
               ACME Corporation Package Registry
