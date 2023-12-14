@@ -1,62 +1,48 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Link from '@mui/material/Link';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import ReactMarkdown from 'react-markdown';
-import gfm from 'remark-gfm';
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Link from "@mui/material/Link";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import ReactMarkdown from "react-markdown";
+import gfm from "remark-gfm";
+import axios from "axios";
+import RatePage from "./RatePage";
+import download from "downloadjs";
+
+const BASE_URL =
+  "https://4n1pa9gczk.execute-api.us-east-1.amazonaws.com/Deployment";
 
 const PackageDetailPage = () => {
   const { packageName } = useParams();
   const defaultTheme = createTheme();
   const [selectedTab, setSelectedTab] = useState(0);
-  const colors = ['#221f1f', '#242746', '#2e3233', '#263238', '#26324a', '#263264', '#2B3264', '#2E3264'];
-  const ratings = ['NET SCORE', 'RAMP UP SCORE', 'CORRECTNESS SCORE', 'BUS FACTOR SCORE', 
-    'RESPONSIVE MAINTAINER SCORE', 'LICENSE SCORE', 'DEPENDENCE_ CORE', 'REVIEWED CODE SCORE'];
   const [data, setData] = useState(null);
+  const [fileBase64, setFile] = useState(null);
 
   const handleTabChange = (event, newValue) => {
     setSelectedTab(newValue);
   };
 
   useEffect(() => {
-    const AWS = require('aws-sdk');
-    AWS.config.update({
-      accessKeyId: sessionStorage.getItem('accessKey'),
-      secretAccessKey: sessionStorage.getItem('secretAccessKey'),
-      region: 'us-east-1'
-    });
-
-    const dynamodb = new AWS.DynamoDB();
-
-    const params = {
-      TableName: 'registry'
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`${BASE_URL}/package/${packageName}`);
+        setData(response.data.metadata);
+        setFile(response.data.Content);
+        console.log(response.data.metadata);
+      } catch (error) {
+        console.log(error);
+      }
     };
 
-    dynamodb.scan(params, (err, responseData) => {
-      if (err) {
-        console.error('Error fetching data:', err);
-      } else {
-        const foundItem = responseData.Items.find(item => item.name.S === packageName);
-        setData(foundItem);
-      }
-    });
+    fetchData();
   }, [packageName]);
-
-  let ratingArray = [];
-  if (data && data.ratings && typeof data.ratings.S === 'string') {
-    const matches = data.ratings.S.match(/\d+(\.\d+)?/g);
-    
-    if (matches) {
-      ratingArray = matches.map(value => Number(value));
-    }
-  }
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -69,7 +55,7 @@ const PackageDetailPage = () => {
       </AppBar>
       <Box
         sx={{
-          bgcolor: 'background.paper',
+          bgcolor: "background.paper",
           pt: 4,
           pb: 6,
           px: 4,
@@ -81,8 +67,13 @@ const PackageDetailPage = () => {
           </Button>
         </Link> */}
         <Box sx={{ pt: 4 }}>
-          <Typography variant="h2">{data ? data.name.S : 'Loading...'}</Typography>
-          <Typography variant="h5">{data ? data.version.S: 'Loading...'} • Public • {data ? data.id.S : 'Loading...'}</Typography>
+          <Typography variant="h2">
+            {data ? data.Name : "Loading..."}
+          </Typography>
+          <Typography variant="h5">
+            {data ? data.Version : "Loading..."} • Public •{" "}
+            {data ? data.ID : "Loading..."}
+          </Typography>
           <Tabs value={selectedTab} onChange={handleTabChange}>
             <Tab label="Readme" />
             <Tab label="Rating" />
@@ -92,51 +83,27 @@ const PackageDetailPage = () => {
           <Box sx={{ p: 3 }}>
             {selectedTab === 0 && (
               <div>
-                {(data && data.readme) && (
-                  <ReactMarkdown remarkPlugins={[gfm]}>{data.readme.S}</ReactMarkdown>
+                {data && data.Readme && (
+                  <ReactMarkdown remarkPlugins={[gfm]}>
+                    {data.Readme}
+                  </ReactMarkdown>
                 )}
               </div>
             )}
-            {selectedTab === 1 && (
-              <div>
-                {(data && ratings.length === ratingArray.length) ? (
-                  <Box sx={{ mt: 4 }}>
-                    {ratings.map((ratingName, index) => (
-                      <div key={ratingName} style={{ marginBottom: '30px' }}>
-                        <div style={{ marginBottom: '10px' }}>
-                          <div style={{ position: 'relative', backgroundColor: '#ddd', width: '100%', height: '40px', borderRadius: '5px', overflow: 'hidden' }}>
-                            <div style={{ width: `${ratingArray[index] * 100}%`, backgroundColor: colors[index % colors.length], height: '100%' }}></div>
-                            <div style={{
-                              position: 'absolute',
-                              top: '50%',
-                              left: '5px',
-                              transform: 'translateY(-50%)',
-                              color: 'white',
-                              zIndex: 1,
-                              textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000',
-                              // Adjust the text shadow values for the desired outline effect
-                            }}>{ratingName} • {ratingArray[index]}</div>
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </Box>
-                ) : (
-                  <div>Loading...</div>
-                )}
-              </div>
-            )}
+            {selectedTab === 1 && <RatePage />}
             {selectedTab === 2 && (
-              <div>
-                temp download
-              </div>
+              <Button
+                onClick={download(
+                  fileBase64,
+                  `${data.Name}.zip`,
+                  "application/zip"
+                )}
+              ></Button>
             )}
             {selectedTab === 3 && (
               <div>
                 <Link to="/home">
-                  <Button variant="contained">
-                    Temp Delete
-                  </Button>
+                  <Button variant="contained">Temp Delete</Button>
                 </Link>
               </div>
             )}
