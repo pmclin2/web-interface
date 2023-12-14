@@ -14,6 +14,7 @@ import gfm from "remark-gfm";
 import axios from "axios";
 import RatePage from "./RatePage";
 import download from "downloadjs";
+import { Alert } from "@mui/material";
 
 const BASE_URL =
   "https://4n1pa9gczk.execute-api.us-east-1.amazonaws.com/Deployment";
@@ -24,6 +25,7 @@ const PackageDetailPage = () => {
   const [selectedTab, setSelectedTab] = useState(0);
   const [data, setData] = useState(null);
   const [fileBase64, setFile] = useState(null);
+  const [errorState, setError] = useState(false);
 
   const handleTabChange = (event, newValue) => {
     setSelectedTab(newValue);
@@ -37,6 +39,7 @@ const PackageDetailPage = () => {
         setFile(response.data.Content);
         console.log(response.data.metadata);
       } catch (error) {
+        setError(true);
         console.log(error);
       }
     };
@@ -61,11 +64,11 @@ const PackageDetailPage = () => {
           px: 4,
         }}
       >
-        {/* <Link to="/home" style={{ textDecoration: 'none' }}>
-          <Button variant="outlined">
-            Back
-          </Button>
-        </Link> */}
+        {errorState ? (
+          <Alert severity="error">Error getting package information</Alert>
+        ) : (
+          <></>
+        )}
         <Box sx={{ pt: 4 }}>
           <Typography variant="h2">
             {data ? data.Name : "Loading..."}
@@ -92,13 +95,17 @@ const PackageDetailPage = () => {
             )}
             {selectedTab === 1 && <RatePage />}
             {selectedTab === 2 && (
-              <Button
-                onClick={download(
-                  fileBase64,
-                  `${data.Name}.zip`,
-                  "application/zip"
+              <div>
+                {!errorState ? (
+                  <Button variant="contained" onClick={download(
+                      fileBase64,
+                      `${data.Name}.zip`,
+                      "application/zip"
+                    )}>Download</Button>
+                ) : (
+                  <></>
                 )}
-              ></Button>
+              </div>
             )}
             {selectedTab === 3 && (
               <div>

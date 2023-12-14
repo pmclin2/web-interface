@@ -35,7 +35,7 @@ export const RatePage = () => {
     "BUS FACTOR SCORE",
     "RESPONSIVE MAINTAINER SCORE",
     "LICENSE SCORE",
-    "DEPENDENCE_ CORE",
+    "DEPENDENCE SCORE",
     "REVIEWED CODE SCORE",
   ];
 
@@ -119,7 +119,7 @@ export const RatePage = () => {
                           // Adjust the text shadow values for the desired outline effect
                         }}
                       >
-                        {ratingName}
+                        {ratingName} • {ratingArray[index].toFixed(2)}
                       </div>
                     </div>
                   </div>

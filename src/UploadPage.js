@@ -7,18 +7,18 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
-import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
 import axios from "axios";
+import { Alert } from "@mui/material";
 
 const BASE_URL =
   "https://4n1pa9gczk.execute-api.us-east-1.amazonaws.com/Deployment";
 
 const UploadPage = () => {
   const [files, setFiles] = useState([]);
-  const [fileDescriptions, setFileDescriptions] = useState([]);
   const defaultTheme = createTheme();
   let fileInputRef = useRef(null);
+  const [errorState, setError] = useState(false);
 
   const handleFileDrop = (event) => {
     event.preventDefault();
@@ -50,21 +50,17 @@ const UploadPage = () => {
     updatedFiles.splice(index, 1);
     setFiles(updatedFiles);
 
-    const updatedDescriptions = [...fileDescriptions];
-    updatedDescriptions.splice(index, 1);
-    setFileDescriptions(updatedDescriptions);
-
     // Reset the file input value to allow re-selection of the same file
     if (fileInputRef && fileInputRef.current) {
       fileInputRef.current.value = ""; // Reset the input value
     }
   };
 
-  const handleFileDescriptionChange = (index, description) => {
-    const updatedDescriptions = [...fileDescriptions];
-    updatedDescriptions[index] = description;
-    setFileDescriptions(updatedDescriptions);
-  };
+  // const handleFileDescriptionChange = (index, description) => {
+  //   const updatedDescriptions = [...fileDescriptions];
+  //   updatedDescriptions[index] = description;
+  //   setFileDescriptions(updatedDescriptions);
+  // };
 
   const handleFileUpload = () => {
     // Handle the upload logic for all files in the 'files' array
@@ -75,6 +71,7 @@ const UploadPage = () => {
           Content: base64Data,
         })
         .catch((error) => {
+          setError(true);
           console.log(error);
         });
       //return response.statusCode;
@@ -106,6 +103,11 @@ const UploadPage = () => {
           </Typography>
         </Toolbar>
       </AppBar>
+      {errorState ? (
+        <Alert severity="error">Error uploading package(s)</Alert>
+      ) : (
+        <></>
+      )}
       <Box
         sx={{
           bgcolor: "background.paper",
@@ -141,18 +143,6 @@ const UploadPage = () => {
                       <Grid container alignItems="center" spacing={2}>
                         <Grid item xs={2}>
                           {file.name}
-                        </Grid>
-                        <Grid item xs={6}>
-                          <TextField
-                            label="Enter Package Name"
-                            value={fileDescriptions[index]}
-                            onChange={(e) =>
-                              handleFileDescriptionChange(index, e.target.value)
-                            }
-                            margin="normal"
-                            variant="outlined"
-                            fullWidth
-                          />
                         </Grid>
                         <Grid item xs={2}>
                           <Button onClick={() => removeFile(index)}>

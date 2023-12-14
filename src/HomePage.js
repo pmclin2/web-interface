@@ -11,6 +11,7 @@ import Container from "@mui/material/Container";
 import List from "@mui/material/List";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
+import { Alert } from "@mui/material";
 import axios from "axios";
 
 const BASE_URL =
@@ -32,6 +33,7 @@ const HomePage = () => {
   });
   const [accessKey, setAccessKey] = useState("");
   const [secretAccessKey, setSecretAccessKey] = useState("");
+  const [errorState, setError] = useState(false);
 
   const handleLogout = () => {
     setAccessKey("");
@@ -49,6 +51,7 @@ const HomePage = () => {
     //     console.log(response);
     //   })
     //   .catch((error) => {
+    //     setError(true);
     //     console.log(error);
     //   });
     // temp until /packages is done
@@ -69,7 +72,7 @@ const HomePage = () => {
               to="/"
             >
               Logout
-            </Button> */}
+            </Button>
           </Toolbar>
         </AppBar>
         <main>
@@ -116,6 +119,11 @@ const HomePage = () => {
             >
               Package Directory
             </Typography>
+            {errorState ? (
+              <Alert severity="error">Error getting packages from registry</Alert>
+            ) : (
+              <></>
+            )}
             <List>
               {data &&
                 data.Items &&

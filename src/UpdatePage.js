@@ -7,13 +7,11 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
-import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
 
 const UpdatePage = () => {
   const [files, setFiles] = useState([]);
   const [fileName, setFileName] = useState('');
-  const [fileDescriptions, setFileDescriptions] = useState([]);
   const defaultTheme = createTheme();
   let fileInputRef = useRef(null);
   const AWS = require('aws-sdk');
@@ -56,20 +54,10 @@ const UpdatePage = () => {
     updatedFiles.splice(index, 1);
     setFiles(updatedFiles);
 
-    const updatedDescriptions = [...fileDescriptions];
-    updatedDescriptions.splice(index, 1);
-    setFileDescriptions(updatedDescriptions);
-
     // Reset the file input value to allow re-selection of the same file
     if (fileInputRef && fileInputRef.current) {
       fileInputRef.current.value = ''; // Reset the input value
     }
-  }
-
-  const handleFileDescriptionChange = (index, description) => {
-    const updatedDescriptions = [...fileDescriptions];
-    updatedDescriptions[index] = description;
-    setFileDescriptions(updatedDescriptions);
   }
 
   AWS.config.update({
@@ -81,12 +69,6 @@ const UpdatePage = () => {
   const handleFileUpload = () => {
     // Handle the upload logic for all files in the 'files' array
     if (files.length > 0) {
-      for (let i = 0; i < files.length; i++) {
-        if (fileDescriptions[i] === undefined || fileDescriptions[i] === ''){
-            alert('Please provide a Name for each file.');
-          return;
-        }
-      }
     //   for (let i = 0; i < files.length; i++) {
     //     const item = {
     //       TableName: 'registry',
@@ -155,16 +137,6 @@ const UpdatePage = () => {
                       <Grid container alignItems="center" spacing={2}>
                         <Grid item xs={2}>
                           {file.name}
-                        </Grid>
-                        <Grid item xs={6}>
-                          <TextField
-                            label="Enter Package Name"
-                            value={fileDescriptions[index]}
-                            onChange={(e) => handleFileDescriptionChange(index, e.target.value)}
-                            margin="normal"
-                            variant="outlined"
-                            fullWidth
-                          />
                         </Grid>
                         <Grid item xs={2}>
                           <Button onClick={() => removeFile(index)}>Remove</Button>
