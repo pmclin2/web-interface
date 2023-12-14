@@ -59,10 +59,11 @@ export const RatePage = () => {
 
     fetchData();
   }, [packageName]);
-
+  
+ 
   return (
     <ThemeProvider theme={defaultTheme}>
-      <AppBar position="relative">
+      <AppBar role="heading" position="relative">
         <Toolbar>
           <Typography variant="h6" color="inherit" noWrap>
             Ratings

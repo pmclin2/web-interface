@@ -22,6 +22,9 @@ const UpdatePage = () => {
   const handleFileDrop = (event) => {
     event.preventDefault();
     const droppedFile = event.dataTransfer.files[0];
+
+    // Sanitation of input same as upload page, if youre doing this first go check my comments in upload page, same place
+
     if (droppedFile && droppedFile.type === 'application/zip'){
       addFile(droppedFile);
     } else {
@@ -31,6 +34,9 @@ const UpdatePage = () => {
 
   const handleFileChange = (event) => {
     const selectedFile = event.target.files[0];
+
+    // Input Sanitization, same as above, 'slectedFile' is the file
+
     if (selectedFile && selectedFile.type === 'application/zip'){
       addFile(selectedFile);
     } else {

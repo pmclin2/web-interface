@@ -99,7 +99,7 @@ const UploadPage = () => {
 
   return (
     <ThemeProvider theme={defaultTheme}>
-      <AppBar position="relative">
+      <AppBar role="heading" position="relative">
         <Toolbar>
           <Typography variant="h6" color="inherit" noWrap>
             Upload Package

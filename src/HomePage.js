@@ -41,6 +41,7 @@ const HomePage = () => {
     sessionStorage.setItem("secretAccessKey", secretAccessKey);
   };
 
+
   useEffect(() => {
     // axios
     //   .get(`${BASE_URL}/packages`)
@@ -68,10 +69,13 @@ const HomePage = () => {
               to="/"
             >
               Logout
-            </Button>
+            </Button> */}
           </Toolbar>
         </AppBar>
         <main>
+          <a href="#packageList" tabIndex="0" style={{ position: 'absolute', top: '-9999px', left: '-9999px' }}>
+            Skip to Package List
+          </a>
           <Box
             sx={{
               bgcolor: "background.paper",
@@ -98,11 +102,11 @@ const HomePage = () => {
                 <Link to="/rate">
                   <Button variant="outlined">Rate</Button>
                 </Link>
-                <Button variant="outlined">Reset Registry</Button>
+                <Button role="none" variant="outlined">Reset Registry</Button>
               </Stack>
             </Container>
           </Box>
-          <Container maxwidth="lg">
+          <Container role="none" href="#packageList" maxwidth="lg">
             <Typography
               component="h1"
               variant="h2"
