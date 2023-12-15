@@ -64,7 +64,6 @@ const UploadPage = () => {
 
   const handleFileUpload = () => {
     // Handle the upload logic for all files in the 'files' array
-
     const postData = async (base64Data) => {
       /*const response =*/ await axios
         .post(`${BASE_URL}/package`, {

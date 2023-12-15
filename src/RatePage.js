@@ -29,14 +29,14 @@ export const RatePage = () => {
     "#2E3264",
   ];
   const ratings = [
-    "NET SCORE",
-    "RAMP UP SCORE",
-    "CORRECTNESS SCORE",
-    "BUS FACTOR SCORE",
-    "RESPONSIVE MAINTAINER SCORE",
-    "LICENSE SCORE",
-    "DEPENDENCE SCORE",
-    "REVIEWED CODE SCORE",
+    "NetScore",
+    "RampUp",
+    "Correctness",
+    "BusFactor",
+    "ResponsiveMaintainer",
+    "LicenseScore",
+    "GoodPinningPractice",
+    "PullRequest",
   ];
 
   useEffect(() => {
@@ -47,7 +47,7 @@ export const RatePage = () => {
         );
         console.log(response.data);
         setRatingArray([]);
-        const matches = response.data.match(/\d+(\.\d+)?/g);
+        const matches = response.match(/\d+(\.\d+)?/g);
         if (matches) {
           setRatingArray(matches.map((value) => Number(value)));
         }

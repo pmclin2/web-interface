@@ -45,16 +45,16 @@ const HomePage = () => {
 
 
   useEffect(() => {
-    // axios
-    //   .get(`${BASE_URL}/packages`)
-    //   .then((response) => {
-    //     console.log(response);
-    //   })
-    //   .catch((error) => {
-    //     setError(true);
-    //     console.log(error);
-    //   });
-    // temp until /packages is done
+    axios
+      .get(`${BASE_URL}/packages`)
+      .then((response) => {
+        setData(response.data)
+        console.log(response);
+      })
+      .catch((error) => {
+        setError(true);
+        console.log(error);
+      });
   }, []);
 
   return (

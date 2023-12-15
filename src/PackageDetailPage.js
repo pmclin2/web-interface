@@ -6,7 +6,6 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import Link from "@mui/material/Link";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import ReactMarkdown from "react-markdown";
@@ -46,6 +45,21 @@ const PackageDetailPage = () => {
 
     fetchData();
   }, [packageName]);
+
+  function deletePackage() {
+    console.log("delete package");
+    const deleteData = async () => {
+      try {
+        const response = await axios.delete(
+          `${BASE_URL}/package/${packageName}`
+        );
+        console.log(response);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    deleteData();
+  }
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -97,11 +111,16 @@ const PackageDetailPage = () => {
             {selectedTab === 2 && (
               <div>
                 {!errorState ? (
-                  <Button variant="contained" onClick={download(
+                  <Button
+                    variant="contained"
+                    onClick={download(
                       fileBase64,
                       `${data.Name}.zip`,
                       "application/zip"
-                    )}>Download</Button>
+                    )}
+                  >
+                    Download
+                  </Button>
                 ) : (
                   <></>
                 )}
@@ -109,9 +128,15 @@ const PackageDetailPage = () => {
             )}
             {selectedTab === 3 && (
               <div>
-                <Link to="/home">
-                  <Button variant="contained">Temp Delete</Button>
-                </Link>
+                <Button
+                  variant="contained"
+                  onClick={() => {
+                    console.log("deleting");
+                    deletePackage();
+                  }}
+                >
+                  Delete Package
+                </Button>
               </div>
             )}
             {/* Add more conditional rendering for other tabs */}
