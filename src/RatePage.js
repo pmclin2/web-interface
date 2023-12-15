@@ -59,7 +59,6 @@ export const RatePage = () => {
 
     fetchData();
   }, [packageName]);
-  
  
   return (
     <ThemeProvider theme={defaultTheme}>

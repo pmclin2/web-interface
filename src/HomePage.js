@@ -13,6 +13,7 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import { Alert } from "@mui/material";
 import axios from "axios";
+import TextField from "@mui/material/TextField";
 
 const BASE_URL =
   "https://4n1pa9gczk.execute-api.us-east-1.amazonaws.com/Deployment";
@@ -56,6 +57,13 @@ const HomePage = () => {
         console.log(error);
       });
   }, []);
+
+  // COMMENT OUT TO REMOVE ID ENTRY
+
+  const [inputValue, setInputValue] = useState('');
+  const isButtonDisabled = inputValue.trim() === '';
+
+  // UNTIL HERE
 
   return (
     <div>
@@ -119,6 +127,9 @@ const HomePage = () => {
             >
               Package Directory
             </Typography>
+
+            {/* CAN REMOVE FROM HERE */}
+
             {errorState ? (
               <Alert severity="error">Error getting packages from registry</Alert>
             ) : (
@@ -140,6 +151,30 @@ const HomePage = () => {
                   </ListItemButton>
                 ))}
             </List>
+
+            {/* UNTIL HERE FOR JUST ID ENTRY */}
+
+            <div>
+              <TextField
+                label="Enter id"
+                variant="outlined"
+                value={inputValue}
+                onChange={(e) => setInputValue(e.target.value)}
+              />
+            </div>
+            <div>
+              <Button
+                variant="contained"
+                component={Link}
+                to={isButtonDisabled ? '#' : `/package/${inputValue}`}
+                disabled={isButtonDisabled}
+              >
+                Enter
+              </Button>
+            </div>
+
+            {/* UNTIL HERE */}
+
           </Container>
         </main>
       </ThemeProvider>
