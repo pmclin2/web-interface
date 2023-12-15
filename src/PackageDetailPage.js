@@ -111,16 +111,19 @@ const PackageDetailPage = () => {
             {selectedTab === 2 && (
               <div>
                 {!errorState ? (
-                  <Button
-                    variant="contained"
-                    onClick={download(
-                      fileBase64,
-                      `${data.Name}.zip`,
-                      "application/zip"
-                    )}
-                  >
-                    Download
-                  </Button>
+                  // <Button
+                  //   variant="contained"
+                  //   onClick={download(
+                  //     fileBase64,
+                  //     `${data.Name}.zip`,
+                  //     "application/zip"
+                  //   )}
+                  // >
+                  //   Download
+                  // </Button>
+                  <div>
+                    {fileBase64}
+                  </div>
                 ) : (
                   <></>
                 )}
@@ -135,7 +138,7 @@ const PackageDetailPage = () => {
                     deletePackage();
                   }}
                 >
-                  Delete Package
+                  Delete
                 </Button>
               </div>
             )}
